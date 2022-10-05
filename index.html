@@ -21,21 +21,42 @@
             <h2 id="locName"></h2>
         </div>
 
-        <div id="history">
+        
+
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            
+            <div id="currentCity">
+                <h3>Today</h3>
+            
+                <!-- current city weather shows here -->
+
+            </div>
+
+            <div id="futForecast">
+                <h3>The next few days</h3>
+            
+                <!-- future forecast shows here -->
+
+            </div>
+
+            <div id="history">
+                <h3>Search History</h3>
             
 
-
-            
-
+            </div>
         </div>
 
-        <div id="currentCity">
-         
-
-
-        </div>
     </main>
-   
+    <script>
+        function btnClick() {
+        
+          document.getElementById('cityName').innerHTML = `${cityValue}`
+
+          console.log("Button Clicked")
+
+
+        }
+      </script>
     <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
     <script src="./assets/script.js"></script>   

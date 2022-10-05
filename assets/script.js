@@ -13,15 +13,21 @@ searchCity.addEventListener('click', function(){
     // event adding search history to local storage
     localStorage.setItem('cityInput', cityInput.value);
 
+
+    var cityValue = localStorage.getItem('cityInput', cityInput.value);
+
+    document.getElementById('history').innerHTML += `
+    
+    <button type="button" class="btn btn-info" onclick="btnClick()">
+    ${cityValue}
+    </button>
+
+    `
+    
+    ;
+
 })
 
-// Adding search input to div
-function getCity (){
-    var cityValue = localStorage.getItem('cityInput');
-    if (cityValue) {
-    document.getElementById('history').value = cityValue;
-    };
-}
 
 
 
@@ -50,16 +56,15 @@ var getWeather = function(cityName){
             }).then(oneCall=> {
                 console.log(oneCall)
                 document.getElementById('currentCity').innerHTML = `
-
+                <h3> Today </h3>
                 <div class="card" style="width: 18rem;">
                 <div class="card-body">
                   <h5 class="card-title">${response.city.name}</h5>
-                  <p class="card-text">Here's your weather!</p>
                   <img src="http://openweathermap.org/img/wn/${response.list[0].weather[0].icon}@4x.png">
                         <ul>
                             <li>Date: ${response.list[0].dt_txt}</li>
-                            <li>Temp: ${response.list[0].main.temp}</li>
-                            <li>Humidity: ${response.list[0].main.humidity}</li>
+                            <li>Temp: ${response.list[0].main.temp} F</li>
+                            <li>Humidity: ${response.list[0].main.humidity}%</li>
                             <li>Wind Speed: ${response.list[0].wind.speed}</li>
                             <li>Uvi: ${oneCall.current.uvi}</li>
                         </ul>
@@ -68,14 +73,87 @@ var getWeather = function(cityName){
               </div>
                 
               `
-                // for loop to dynamically generate HTML cards 
+            //   document.getElementById('history').innerHTML += `
+            //     ${response.city.name} 
+            //   `
             })
+            
+            
+            // for loop to dynamically generate HTML cards 
+            
+        
+            let fiveDays = []
+            let dayOne = {
+        
+                icon: response.list[8].weather[0].icon,
+                date: response.list[8].dt_txt,
+                temp: response.list[8].main.temp,
+                humidity: response.list[8].main.humidity,
+                windSpeed: response.list[8].wind.speed,
+            }
+            let dayTwo = {
+        
+                icon: response.list[16].weather[0].icon,
+                date: response.list[16].dt_txt,
+                temp: response.list[16].main.temp,
+                humidity: response.list[16].main.humidity,
+                windSpeed: response.list[16].wind.speed,
+            }
+            let dayThree = {
 
-        })
-        //Show data on main area of page
+                icon: response.list[24].weather[0].icon,
+                date: response.list[24].dt_txt,
+                temp: response.list[24].main.temp,
+                humidity: response.list[24].main.humidity,
+                windSpeed: response.list[24].wind.speed,
 
-//    console.log(document.getElementById("locName").innerHTML = response.city.name)
+            }
+            let dayFour = {
+
+                icon: response.list[32].weather[0].icon,
+                date: response.list[32].dt_txt,
+                temp: response.list[32].main.temp,
+                humidity: response.list[32].main.humidity,
+                windSpeed: response.list[32].wind.speed,
+
+            }
+            let dayFive = {
+
+                icon: response.list[39].weather[0].icon,
+                date: response.list[39].dt_txt,
+                temp: response.list[39].main.temp,
+                humidity: response.list[39].main.humidity,
+                windSpeed: response.list[39].wind.speed,
+
+            }
+           
+
+            fiveDays.push(dayOne, dayTwo, dayThree, dayFour, dayFive)
+            // console.log(fiveDays)
+
+            fiveDays.forEach(day => {
+                document.getElementById('futForecast').innerHTML += `
+                
+                <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                  <img src="http://openweathermap.org/img/wn/${day.icon}@4x.png">
+                        <ul>
+                            <li>Date: ${day.date}</li>
+                            <li>Temp: ${day.temp} F</li>
+                            <li>Humidity: ${day.humidity}%</li>
+                            <li>Wind Speed: ${day.windSpeed}</li>
     
+                        </ul>
+                 
+                </div>
+                
+                
+                `
+            });
+        })
+       
+
+
 }; 
 
 
